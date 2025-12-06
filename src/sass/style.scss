@@ -1,4 +1,5 @@
 /* Сброс и базовые стили */
+
 * {
     margin: 0;
     padding: 0;
@@ -25,6 +26,7 @@ body {
     color: var(--dark-color);
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     min-height: 100vh;
+    min-width: 500px;
     padding: 20px;
 }
 
@@ -54,7 +56,6 @@ body {
     opacity: 0.9;
 }
 
-/* Основной контент */
 .main-content {
     padding: 2rem;
 }
@@ -103,7 +104,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* Статистика */
 .stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -181,7 +181,6 @@ body {
     opacity: 0.5;
 }
 
-
 .controls {
     display: flex;
     justify-content: space-between;
@@ -207,6 +206,184 @@ body {
 }
 
 
+/* Добавь в main.css после .todo-list-container */
+
+.task-item {
+    background: white;
+    border: 2px solid #e1e5eb;
+    border-radius: var(--border-radius);
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: move;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.task-item:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(74, 111, 165, 0.15);
+    transform: translateY(-2px);
+}
+
+.task-item.dragging {
+    opacity: 0.5;
+    transform: rotate(3deg);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Drag handle (иконка для перетаскивания) */
+
+.drag-handle {
+    color: #adb5bd;
+    font-size: 1.2rem;
+    cursor: grab;
+    padding: 8px;
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.drag-handle:hover {
+    color: var(--primary-color);
+    background: #f8f9fa;
+}
+
+.drag-handle:active {
+    cursor: grabbing;
+}
+
+.task-checkbox {
+    position: relative;
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    border: 2px solid #dee2e6;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.task-checkbox:checked {
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+}
+
+.task-checkbox:checked::after {
+    content: '✓';
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.task-text {
+    flex: 1;
+    font-size: 1.1rem;
+    color: var(--dark-color);
+    word-break: break-word;
+    padding-right: 10px;
+    transition: var(--transition);
+}
+
+.task-text.completed {
+    text-decoration: line-through;
+    color: var(--gray-color);
+    opacity: 0.7;
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    color: var(--gray-color);
+    font-size: 1.8rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.delete-btn:hover {
+    color: var(--danger-color);
+    background: rgba(231, 76, 60, 0.1);
+}
+
+.task-date {
+    font-size: 0.85rem;
+    color: var(--gray-color);
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.task-date i {
+    font-size: 0.8rem;
+}
+
+.task-priority {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.priority-high {
+    background: #ffeaea;
+    color: var(--danger-color);
+}
+
+.priority-medium {
+    background: #fff4e6;
+    color: var(--warning-color);
+}
+
+.priority-low {
+    background: #e6f7ff;
+    color: var(--primary-color);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.task-item.new {
+    animation: slideIn 0.3s ease-out;
+}
+
+.drop-indicator {
+    height: 3px;
+    background: var(--primary-color);
+    margin: 5px 0;
+    border-radius: 2px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.drop-indicator.active {
+    opacity: 1;
+}
+
 .footer {
     background: var(--light-color);
     padding: 1.5rem;
@@ -230,20 +407,19 @@ body {
     .container {
         margin: 10px;
     }
-    
     .header h1 {
         font-size: 2rem;
     }
-    
     .stats {
         grid-template-columns: 1fr;
     }
-    
     .controls {
         flex-direction: column;
     }
-    
     .btn {
         justify-content: center;
+    }
+    .filters {
+        flex-direction: column;
     }
 }
